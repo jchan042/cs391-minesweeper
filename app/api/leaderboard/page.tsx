@@ -1,6 +1,6 @@
 // app/leaderboard/page.tsx
 import Leaderboard from '@/components/Leaderboard';
-import { auth } from '@/app/api/auth/[...nextauth]/route';
+import { auth } from '@/app/api/auth/auth.js';
 
 export default async function LeaderboardPage() {
     const session = await auth();
