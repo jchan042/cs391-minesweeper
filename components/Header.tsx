@@ -5,10 +5,10 @@ import styled from "styled-components";
 // need to add user name when logged in
 
 const StyledHeader = styled.header`
-    background-color: ;
-    color: 
-    padding: ;
-    text-align: ;
+    background-color: #555;
+    color: black;
+    padding: 16px;
+    text-align: center;
 
     h1 {
         font-size: calc(1.5rem + 1vw);
@@ -30,7 +30,6 @@ export default function Header() {
     return (
         <StyledHeader>
             <h1>Minesweeper</h1>
-
         </StyledHeader>
     );
 }

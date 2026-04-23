@@ -59,14 +59,14 @@ const Tab = styled.button<{ $active: boolean }>`
     transition: all 0.15s;
 `;
 
-const PodiumGrid = styled.div<{ $gold: boolean }>`
+const PodiumGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
   margin-bottom: 1.25rem;
 `;
 
-const PodCard = styled.div`
+const PodCard = styled.div<{ $gold: boolean }>`
   background: #fff;
   border: 1px solid ${({ $gold }) => ($gold ? '#BA7517' : '#e5e5e5')};
   border-radius: 12px;
@@ -113,7 +113,6 @@ export default function Leaderboard({ currentUserId }: LeaderboardProps) {
     // currentUserId comes from NextAuth session (passed in by parent page)
     const [difficulty, setDifficulty] = useState<string>('medium');
     const [scores, setScores] = useState<Score[] | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
 
     // Re-fetch whenever difficulty tab changes
     useEffect(() => {
@@ -125,8 +124,8 @@ export default function Leaderboard({ currentUserId }: LeaderboardProps) {
     }, [difficulty]);
 
     // Top 3 go in the podium, rest go in the list below
-    const podium = scores.slice(0, 3);
-    const rest   = scores.slice(3);
+    const podium = scores?.slice(0, 3) ?? [];
+    const rest   = scores?.slice(3) ?? [];
     const medals = ['🥇', '🥈', '🥉'];
     // Re-order so gold is visually in the center
     const podiumOrder = [podium[1], podium[0], podium[2]];
