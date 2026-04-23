@@ -5,14 +5,16 @@ import styled from "styled-components";
 // need to add user name when logged in
 
 const StyledHeader = styled.header`
-    background-color: ;
-    color: 
-    padding: ;
-    text-align: ;
+    background: linear-gradient(to bottom, #f5f5f59a, #dcdcdcdf);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: black;
+    padding: 16px;
+    text-align: center;
 
     h1 {
-        font-size: calc(1.5rem + 1vw);
+        font-size: calc(1rem + 1vw);
         margin: 0;
+        text-align: left;
     }
 
     p {
@@ -30,7 +32,6 @@ export default function Header() {
     return (
         <StyledHeader>
             <h1>Minesweeper</h1>
-
         </StyledHeader>
     );
 }
