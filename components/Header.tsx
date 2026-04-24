@@ -1,37 +1,84 @@
+"use client";
+
 import styled from "styled-components";
-// need to style
-// need to add log in log out
-    // log in log out needs button styling
-// need to add user name when logged in
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import Login from "@/components/Login";
+import Logout from "@/components/Logout";
 
 const StyledHeader = styled.header`
-    background: linear-gradient(to bottom, #f5f5f59a, #dcdcdcdf);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: black;
-    padding: 16px;
-    text-align: center;
+  background: linear-gradient(to bottom, #f5f5f59a, #dcdcdcdf);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: black;
+  padding: 16px;
 
-    h1 {
-        font-size: calc(1rem + 1vw);
-        margin: 0;
-        text-align: left;
-    }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
-    p {
-        font-size: calc(0.8rem + 0.3vw);
-        margin: 5px 0 0 0;
-        opacity: 0.85;
-    }
+// keeps the right section of the header aligned and spaced out
+const RightSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
 
-    @media screen and (max-width: 750px) {
-        text-align: center;
-    }
+const StatsButton = styled.button`
+  background-color: black;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: red;
+  }
+`;
+
+const HomeButton = styled.button`
+  background-color: black;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: red;
+  }
 `;
 
 export default function Header() {
-    return (
-        <StyledHeader>
-            <h1>Minesweeper</h1>
-        </StyledHeader>
-    );
+  const { data: session } = useSession();
+  const router = useRouter();
+  // get session data and redirect
+
+  return (
+    <StyledHeader>
+      <h1>Minesweeper</h1>
+
+      <RightSection>
+        {/* if user is logged in, show stats and logout, otherwise show login */}
+        {!session ? (
+          <Login />
+        ) : (
+          <>
+            <span>Hi, {session.user?.name}</span>
+            
+            <HomeButton onClick={() => router.push("/")}>
+              Home
+            </HomeButton>
+
+            <StatsButton onClick={() => router.push("/stats")}>
+              Stats
+            </StatsButton>
+
+            <Logout />
+          </>
+        )}
+      </RightSection>
+    </StyledHeader>
+  );
 }
