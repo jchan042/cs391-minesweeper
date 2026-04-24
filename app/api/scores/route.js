@@ -16,10 +16,10 @@ export async function POST(request) {
     const existing = await Score.findOne({ userId, difficulty });
 
     if (!existing) {
-        // First game on this difficulty
         await Score.create({
             userId, username, avatar, difficulty,
-            bestTime: time,
+            // only record a bestTime if they actually won
+            bestTime: won ? time : Infinity,
             wins: won ? 1 : 0,
             gamesPlayed: 1,
         });

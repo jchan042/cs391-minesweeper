@@ -138,7 +138,7 @@ export default function UserStats({ userId, username }: UserStatsProps) {
                                 ) : (
                                     <>
                                         {/* Best time is the main stat */}
-                                        <BigStat>{record.bestTime}s</BigStat>
+                                        <BigStat>{record.bestTime === Infinity ? '—' : `${record.bestTime}s`}</BigStat>
                                         <StatLabel>best time</StatLabel>
 
                                         <SubStats>
