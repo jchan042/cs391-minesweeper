@@ -123,28 +123,25 @@ export default function DailyGamePage() {
   }, [timerActive, gameOver, hasWon]);
 
   const submitGameResult = async (won: boolean) => {
+    if (!session?.user?.email) return;
+
     const payload = {
-      userId: session?.user?.email || "dev-guest",
-      username: session?.user?.name || "Guest",
-      avatar: session?.user?.image || "",
+      userId: session.user.email,
+      username: session.user.name,
+      avatar: session.user.image,
       difficulty: difficulty,
       time: seconds,
       won: won
     };
 
-    console.log("Submitting Result:", payload);
-
-    if (!session?.user) return;
-
-    try {
-      await fetch('/api/scores', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-    } catch (e) {
-      console.error("API Error:", e);
-    }
+    const response = await fetch('/api/scores', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    
+    const data = await response.json();
+    console.log("Result:", data);
   };
 
   // recursive reveal
