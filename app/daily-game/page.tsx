@@ -124,7 +124,7 @@ export default function DailyGamePage() {
 
   const submitGameResult = async (won: boolean) => {
     const payload = {
-      userId: (session?.user as any)?.id || "dev-guest", 
+      userId: session?.user?.email || "dev-guest",
       username: session?.user?.name || "Guest",
       avatar: session?.user?.image || "",
       difficulty: difficulty,
@@ -137,7 +137,7 @@ export default function DailyGamePage() {
     if (!session?.user) return;
 
     try {
-      await fetch('/api/score', {
+      await fetch('/api/scores', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
