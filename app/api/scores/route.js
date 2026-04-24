@@ -30,7 +30,7 @@ export async function POST(request) {
             { userId, difficulty },
             {
                 $set: {
-                    bestTime: won && time < existing.bestTime ? time : existing.bestTime,
+                    bestTime: won ? (existing.bestTime === null ? time : Math.min(time, existing.bestTime)) : existing.bestTime,
                     username,
                     avatar,
                 },
