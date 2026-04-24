@@ -7,7 +7,7 @@ const ScoreSchema = new mongoose.Schema({
     username:    { type: String, required: true },
     avatar:      { type: String, default: '' },      // profile pic URL from OAuth
     difficulty:  { type: String, enum: ['easy', 'medium', 'hard'], required: true },
-    bestTime:    { type: Number, required: true },   // in seconds, lower is better
+    bestTime:    { type: Number, default: null }, // null means no wins yet
     wins:        { type: Number, default: 0 },
     gamesPlayed: { type: Number, default: 0 },
 }, { timestamps: true });

@@ -133,12 +133,13 @@ export default function UserStats({ userId, username }: UserStatsProps) {
                                 <DifficultyLabel>{diff}</DifficultyLabel>
 
                                 {!record ? (
-                                    // User hasn't played this difficulty yet
+                                    <NoData>No games yet</NoData>
+                                ) : record.gamesPlayed === 0 ? (
                                     <NoData>No games yet</NoData>
                                 ) : (
                                     <>
                                         {/* Best time is the main stat */}
-                                        <BigStat>{record.bestTime === Infinity ? '—' : `${record.bestTime}s`}</BigStat>
+                                        <BigStat>{!record.bestTime ? '—' : `${record.bestTime}s`}</BigStat>
                                         <StatLabel>best time</StatLabel>
 
                                         <SubStats>

@@ -9,7 +9,8 @@ export async function GET(request) {
 
     await connectDB();
 
-    const scores = await Score.find({ difficulty })
+    // Only show players who have actually won at least once
+    const scores = await Score.find({ difficulty, bestTime: { $ne: null } })
         .sort({ bestTime: 1 })
         .limit(20)
         .lean();

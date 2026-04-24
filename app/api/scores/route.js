@@ -5,9 +5,10 @@ import Score from '@/models/Score';
 
 export async function POST(request) {
     const body = await request.json();
+
     const { userId, username, avatar, difficulty, time, won } = body;
 
-    if (!userId || !username || !difficulty || !time) {
+    if (!userId || !username || !difficulty || time === undefined || time === null) {
         return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -18,8 +19,8 @@ export async function POST(request) {
     if (!existing) {
         await Score.create({
             userId, username, avatar, difficulty,
-            // only record a bestTime if they actually won
-            bestTime: won ? time : Infinity,
+            // if they lost their first game, don't store a bestTime yet
+            bestTime: won ? time : null,
             wins: won ? 1 : 0,
             gamesPlayed: 1,
         });

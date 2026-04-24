@@ -139,9 +139,9 @@ export default function DailyGamePage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
-    
-    const data = await response.json();
-    console.log("Result:", data);
+
+    const text = await response.text();
+    console.log("Result:", text);
   };
 
   // recursive reveal
