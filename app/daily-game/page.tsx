@@ -1,3 +1,6 @@
+//Contibution by Hiya:
+//game logic
+
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
@@ -5,7 +8,8 @@ import { useSession } from "next-auth/react";
 import styled from "styled-components";
 import Cell from "@/components/Cell";
 
-
+//table may go out of scope due to size
+//prof said this is okay as long as the other elements do not
 const GameContainer = styled.main`
   display: flex;
   flex-direction: column;
@@ -36,10 +40,11 @@ const TimerContainer = styled.div`
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 `;
 
+//hourglass icon
 const ClockIcon = styled.span`
   font-size: 1.2rem;
   &::before {
-    content: "\u231B";
+    content: "\u231B"; 
     margin-right: 4px;
   }
 `;
@@ -52,6 +57,7 @@ const TimerText = styled.span`
   min-width: 40px;
 `;
 
+//to choose easy med or hard
 const DifficultyBar = styled.div`
   display: flex;
   gap: 10px;
@@ -89,14 +95,14 @@ const StatusMessage = styled.div`
 `;
 
 // typical dimensions/num of mines
-
 const CONFIG: { [key: string]: { rows: number; cols: number; mines: number } } = {
   easy: { rows: 9, cols: 9, mines: 10 },
   medium: { rows: 16, cols: 16, mines: 40 },
   hard: { rows: 16, cols: 30, mines: 99 },
 };
 
-const seededRandom = (seed: number) => {
+//randomization based on seed
+const seededRandom = (seed: number) => { //seed is date
   return function() {
     seed = (seed * 16807) % 2147483647;
     return (seed - 1) / 2147483646;
@@ -113,7 +119,7 @@ export default function DailyGamePage() {
   const [seconds, setSeconds] = useState(0);
   const [timerActive, setTimerActive] = useState(true);
 
-  //timer logic
+  //timer stops when game ends(win or loss)
   useEffect(() => {
     let interval: any;
     if (timerActive && !gameOver && !hasWon) {
@@ -125,11 +131,12 @@ export default function DailyGamePage() {
   const submitGameResult = async (won: boolean) => {
     if (!session?.user?.email) return;
 
+    //send info to stats page
     const payload = {
-      userId: session.user.email,
-      username: session.user.name,
-      avatar: session.user.image,
-      difficulty: difficulty,
+      userId: session.user.email, //must be unique because of auth, so it works as a unique id
+      username: session.user.name, 
+      avatar: session.user.image, //if we implement pfp
+      difficulty: difficulty, //must send difficulty to correctly record games played, etc. 
       time: seconds,
       won: won
     };
@@ -173,12 +180,14 @@ export default function DailyGamePage() {
     const dateStr = new Date().toISOString().split('T')[0].replace(/-/g, '');
     const rng = seededRandom(parseInt(dateStr));
     
+    //mines
     let minesPlaced = 0;
     while (minesPlaced < mines) {
       const r = Math.floor(rng() * rows), c = Math.floor(rng() * cols);
       if (!newGrid[r][c].isBomb) { newGrid[r][c].isBomb = true; minesPlaced++; }
     }
 
+    //indicator numbers
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         if (newGrid[r][c].isBomb) continue;
