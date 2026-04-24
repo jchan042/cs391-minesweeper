@@ -8,10 +8,9 @@ import Logout from "@/components/Logout";
 
 const StyledHeader = styled.header`
   background: linear-gradient(to bottom, #f5f5f59a, #dcdcdcdf);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: black;
   padding: 16px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
