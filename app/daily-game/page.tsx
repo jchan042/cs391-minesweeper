@@ -119,7 +119,7 @@ export default function DailyGamePage() {
   const [seconds, setSeconds] = useState(0);
   const [timerActive, setTimerActive] = useState(true);
 
-  //timer stops when game ends(win or loss)
+  //timer stops when game ends(win or loss) **note that timer starts as soon as the page loads
   useEffect(() => {
     let interval: any;
     if (timerActive && !gameOver && !hasWon) {
@@ -160,7 +160,7 @@ export default function DailyGamePage() {
     currentGrid[r][c].isRevealed = true;
 
     if (currentGrid[r][c].adjacent === 0 && !currentGrid[r][c].isBomb) {
-      for (let i = -1; i <= 1; i++) {
+      for (let i = -1; i <= 1; i++) { //nested loop to go over each cell
         for (let j = -1; j <= 1; j++) {
           revealCell(currentGrid, r + i, c + j);
         }
@@ -248,6 +248,7 @@ export default function DailyGamePage() {
     }
   };
 
+  //flag
   const handleFlag = (r: number, c: number) => {
     if (gameOver || hasWon || grid[r][c].isRevealed) return;
     const newGrid = grid.map(row => row.map(cell => ({...cell})));
