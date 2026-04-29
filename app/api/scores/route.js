@@ -1,3 +1,5 @@
+// Done by Jocelyn Chan
+
 // app/api/scores/route.js
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongoose';

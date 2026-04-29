@@ -1,3 +1,5 @@
+// Done by Jocelyn Chan
+
 // app/leaderboard/page.tsx
 import Leaderboard from '@/components/Leaderboard';
 import { auth } from '@/app/api/auth/auth.js';

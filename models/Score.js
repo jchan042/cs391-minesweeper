@@ -1,3 +1,5 @@
+// Done by Jocelyn Chan
+
 // models/Score.js
 
 import mongoose from 'mongoose';

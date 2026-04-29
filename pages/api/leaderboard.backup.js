@@ -1,3 +1,5 @@
+// Done by Jocelyn Chan
+
 // pages/api/leaderboard.js
 
 import { connectDB } from '@/lib/mongoose';

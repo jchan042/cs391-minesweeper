@@ -1,3 +1,5 @@
+// Done by Jocelyn Chan
+
 // pages/api/scores.js
 // Called by the game components when a round finishes
 
