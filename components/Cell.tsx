@@ -1,6 +1,9 @@
+//Created by Kimaya Jadhav
+
 "use client";
 import styled from "styled-components";
 
+// Styles the cell with two visual states, revealed (light) and unrevealed (dark)
 const StyledCell = styled.div<{ $revealed: boolean }>`
   width: 40px;
   height: 40px;
@@ -22,11 +25,12 @@ const StyledCell = styled.div<{ $revealed: boolean }>`
   }
 `;
 
+// all state passed down from parent board
 type CellProps = {
     isBomb: boolean;
     isRevealed: boolean;
     isFlagged: boolean;
-    adjacent: number;
+    adjacent: number; // number of neighboring bombs (0-8)
     onReveal: () => void;
     onFlag: () => void;
 };
@@ -64,7 +68,7 @@ export default function Cell({
         <StyledCell
             onClick={onReveal}
             onContextMenu={handleRightClick}
-            $revealed={isRevealed}
+            $revealed={isRevealed} //changes background color in styled component
         >
             {renderContent()}
         </StyledCell>
